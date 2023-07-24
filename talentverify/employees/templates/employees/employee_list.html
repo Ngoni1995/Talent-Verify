@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2>Employee List</h2>
+  <ul>
+    {% for employee in employees %}
+      <li>
+        <strong>{{ employee.name }}</strong> ({{ employee.employee_id }})
+        - Department: {{ employee.department }}
+        - Role: {{ employee.role }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
