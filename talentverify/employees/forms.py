@@ -8,4 +8,5 @@ class EmployeeUpdateForm(forms.ModelForm):
 
 
 
-
+class EmployeeBulkUpdateForm(forms.Form):
+    file = forms.FileField(label='Upload CSV, Text, or Excel file')
