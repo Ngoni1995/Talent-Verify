@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Company Dashboard</h1>
+    <!-- Add the content for Company Users' dashboard here -->
+    <!-- For example, you can display options to add and update employee information -->
+    <p>Use the following links to manage employee information:</p>
+    <ul>
+        <li><a href="{% url 'bulk_update_employees' %}">Bulk Update Employees</a></li>
+        <li><a href="{% url 'employee_update_single' %}">Update Employee Information (Single Entry)</a></li>
+    </ul>
+</body>
+</html>

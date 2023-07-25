@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Talent Verify Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Talent Verify Dashboard</h1>
+    <!-- Add the content for Talent Verify dashboard here -->
+    <!-- For example, you can display options to update and add employee information -->
+    <p>Use the following links to manage employee and company information:</p>
+    <ul>
+        <li><a href="{% url 'bulk_update_employees' %}">Bulk Update Employees</a></li>
+        <li><a href="{% url 'employee_update_single' %}">Update Employee Information (Single Entry)</a></li>
+        <li><a href="{% url 'add_company' %}">Add Company</a></li>
+    </ul>
+</body>
+</html>

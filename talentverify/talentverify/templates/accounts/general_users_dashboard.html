@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>General Users Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the General Users Dashboard</h1>
+    <!-- Add the content for General Users dashboard here -->
+    <!-- For example, you can display the search functionality and the list of employees -->
+    <form method="get" action="{% url 'employee_list' %}">
+        <input type="text" name="name" placeholder="Search by Name">
+        <input type="text" name="employer" placeholder="Search by Employer">
+        <input type="text" name="position" placeholder="Search by Position">
+        <input type="text" name="department" placeholder="Search by Department">
+        <input type="text" name="year_started" placeholder="Search by Year Started">
+        <input type="text" name="year_left" placeholder="Search by Year Left">
+        <!-- Add other search fields here based on your requirements -->
+        <button type="submit">Search</button>
+    </form>
+    
+    <!-- Display the list of employees -->
+    <ul>
+        {% for employee in employees %}
+        <li>{{ employee.name }} - {{ employee.department }} - {{ employee.position }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Talent Verify</title>
+</head>
+<body>
+    <h1>Welcome to Talent Verify</h1>
+    
+    <h2>Login Options:</h2>
+    <ul>
+        <li><a href="{% url 'company_login' %}">Company Users (Employer)</a></li>
+        <li><a href="{% url 'talent_verify_login' %}">Talent Verify</a></li>
+        <li><a href="{% url 'general_users_login' %}">General Users</a></li>
+    </ul>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

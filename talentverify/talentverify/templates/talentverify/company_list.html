@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2>Company List</h2>
+  <ul>
+    {% for company in companies %}
+      <li>
+        <strong>{{ company.name }}</strong>
+        - Registration Date: {{ company.date_of_registration }}
+        - Registration Number: {{ company.company_registration_number }}
+        - Address: {{ company.address }}
+        - Contact Person: {{ company.contact_person }}
+        - Departments: {{ company.departments }}
+        - Number of Employees: {{ company.number_of_employees }}
+        - Contact Phone: {{ company.contact_phone }}
+        - Email Address: {{ company.email_address }}
+        <a href="{% url 'add_employee' company.id %}">Add Employee</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

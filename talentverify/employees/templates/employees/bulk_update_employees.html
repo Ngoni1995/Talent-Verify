@@ -1,11 +1,12 @@
+<!-- employees/templates/employees/bulk_update_employees.html -->
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-<h2>Bulk Update Employee Information</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload and Update</button>
-</form>
+    <h2>Bulk Update Employees</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form>
 {% endblock %}

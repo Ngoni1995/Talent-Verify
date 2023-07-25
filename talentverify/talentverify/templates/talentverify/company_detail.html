@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2>{{ company.name }} Details</h2>
+  <ul>
+    <li>Registration Date: {{ company.date_of_registration }}</li>
+    <li>Registration Number: {{ company.company_registration_number }}</li>
+    <li>Address: {{ company.address }}</li>
+    <li>Contact Person: {{ company.contact_person }}</li>
+    <li>Departments: {{ company.departments }}</li>
+    <li>Number of Employees: {{ company.number_of_employees }}</li>
+    <li>Contact Phone: {{ company.contact_phone }}</li>
+    <li>Email Address: {{ company.email_address }}</li>
+  </ul>
+  <h3>Employees:</h3>
+  <ul>
+    {% for employee in employees %}
+      <li>
+        <strong>{{ employee.name }}</strong>
+        - Employee ID: {{ employee.employee_id }}
+        - Department: {{ employee.department }}
+        - Role: {{ employee.role }}
+        - Date Started: {{ employee.date_started }}
+        - Date Left: {{ employee.date_left|default:"N/A" }}
+        - Duties: {{ employee.duties|default:"N/A" }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
