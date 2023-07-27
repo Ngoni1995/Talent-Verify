@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'employees',  # Add the employees app here
     'talentverify',  # Add the talentverify app here
     'frontend',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -83,10 +84,17 @@ WSGI_APPLICATION = 'talentverify.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+#DATABASES = {
+    #'default': dj_database_url.config(
+    #    default=os.environ.get('DATABASE_URL', 'postgres://postgres:admin@localhost:5432/talent_verify')
+   # )
+#}
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', 'postgres://postgres:admin@localhost:5432/talent_verify')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Password validation

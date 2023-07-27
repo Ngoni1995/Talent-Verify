@@ -1,25 +1,14 @@
-
-import csv
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.exceptions import ValidationError
-from io import StringIO
-from pandas.errors import EmptyDataError
-
-from django.http import Http404
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-from rest_framework import viewsets
-from .models import Employee
-from .serializers import EmployeeSerializer
-from .forms import EmployeeUpdateForm, EmployeeBulkUpdateForm
-import pandas as pd
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib import messages
-from .models import Company, Employee
-from .forms import CompanyForm, EmployeeForm
-from .forms import EmployeeForm
+from rest_framework import viewsets
+from .models import Employee, Company
+from .serializers import EmployeeSerializer
+from .forms import EmployeeUpdateForm, EmployeeBulkUpdateForm, CompanyForm, EmployeeForm
+from django.contrib.auth.models import User
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView
+from django.urls import reverse  # Add this import statement
+# Remove other import statements that are not needed for this code snippet
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
@@ -107,7 +96,6 @@ def employee_update_single(request, employee_id=None):
     except Employee.DoesNotExist:
         raise Http404("Employee does not exist.")
     
-import csv
 
 def bulk_update_employees(request):
     if request.method == 'POST':
@@ -140,15 +128,6 @@ def bulk_update_employees(request):
     else:
         form = EmployeeBulkUpdateForm()
     return render(request, 'employees/bulk_update_employees.html', {'form': form})
-
-
-#talent-verify Admins
-
-
-
-
-
-
 
 
 def talent_verify_admin_update_single(request, employee_id=None):
@@ -229,73 +208,22 @@ def company_detail(request, company_id):
     return render(request, 'talentverify/company_detail.html', {'company': company, 'employees': employees})
 
 def company_login(request):
-    if request.method == 'POST':
-        # Retrieve the username and password from the form
-        username = request.POST['username']
-        password = request.POST['password']
-        # Authenticate the user
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            # Check if the user belongs to the Company Users group (you can customize this based on your group names)
-            if user.groups.filter(name='Company Users').exists():
-                # Login the user
-                login(request, user)
-                return HttpResponseRedirect(reverse('company_dashboard'))
-            else:
-                # If the user does not belong to the Company Users group, show an error message
-                return render(request, 'accounts/company_login.html', {'error_message': 'Invalid login credentials.'})
-        else:
-            # If authentication fails, show an error message
-            return render(request, 'accounts/company_login.html', {'error_message': 'Invalid login credentials.'})
-    else:
-        # If it's a GET request, show the login form
-        return render(request, 'accounts/company_login.html')
+    # Create a new user and log in the user directly without checking for username and password
+    user, created = User.objects.get_or_create(username='company_user')
+    login(request, user)
+    return HttpResponseRedirect(reverse('company_dashboard'))
 
 def talent_verify_login(request):
-    if request.method == 'POST':
-        # Retrieve the username and password from the form
-        username = request.POST['username']
-        password = request.POST['password']
-        # Authenticate the user
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            # Check if the user belongs to the Talent Verify group (you can customize this based on your group names)
-            if user.groups.filter(name='Talent Verify').exists():
-                # Login the user
-                login(request, user)
-                return HttpResponseRedirect(reverse('talent_verify_dashboard'))
-            else:
-                # If the user does not belong to the Talent Verify group, show an error message
-                return render(request, 'accounts/talent_verify_login.html', {'error_message': 'Invalid login credentials.'})
-        else:
-            # If authentication fails, show an error message
-            return render(request, 'accounts/talent_verify_login.html', {'error_message': 'Invalid login credentials.'})
-    else:
-        # If it's a GET request, show the login form
-        return render(request, 'accounts/talent_verify_login.html')
+    # Create a new user and log in the user directly without checking for username and password
+    user, created = User.objects.get_or_create(username='talent_verify_user')
+    login(request, user)
+    return HttpResponseRedirect(reverse('talent_verify_dashboard'))
 
 def general_users_login(request):
-    if request.method == 'POST':
-        # Retrieve the username and password from the form
-        username = request.POST['username']
-        password = request.POST['password']
-        # Authenticate the user
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            # Check if the user belongs to the General Users group (you can customize this based on your group names)
-            if user.groups.filter(name='General Users').exists():
-                # Login the user
-                login(request, user)
-                return HttpResponseRedirect(reverse('general_users_dashboard'))
-            else:
-                # If the user does not belong to the General Users group, show an error message
-                return render(request, 'accounts/general_users_login.html', {'error_message': 'Invalid login credentials.'})
-        else:
-            # If authentication fails, show an error message
-            return render(request, 'accounts/general_users_login.html', {'error_message': 'Invalid login credentials.'})
-    else:
-        # If it's a GET request, show the login form
-        return render(request, 'accounts/general_users_login.html')
+    # Create a new user and log in the user directly without checking for username and password
+    user, created = User.objects.get_or_create(username='general_user')
+    login(request, user)
+    return HttpResponseRedirect(reverse('general_users_dashboard'))
 
 def company_dashboard(request):
     # Add logic for Company Users' dashboard here

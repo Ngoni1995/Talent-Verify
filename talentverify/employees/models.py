@@ -1,5 +1,9 @@
 
 from django.db import models
+from import_export import resources
+
+
+
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
@@ -16,7 +20,7 @@ class Company(models.Model):
         return self.name
 
 class Employee(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)  # Make sure the foreign key is correctly defined.
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)  # Make sure the foreign key is correctly defined.
     name = models.CharField(max_length=100)
     employee_id = models.CharField(max_length=20, blank=True, null=True)
     department = models.CharField(max_length=50)
@@ -27,3 +31,8 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
+
+class EmployeeResource(resources.ModelResource):
+    class Meta:
+        model = Employee
+        fields = ('employee_id', 'name', 'department', 'role', 'date_started', 'date_left', 'duties')
